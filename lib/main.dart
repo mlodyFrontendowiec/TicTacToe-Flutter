@@ -11,15 +11,17 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  List cards = [" ", " ", " ", " ", " ", " ", " ", " ", " "];
+  List cards = ["", "", "", "", "", "", "", "", ""];
   String char = "O";
 
   void setCard(index) {
-    setState(() {
-      cards[index] = char;
-    });
-    changeChar();
-    print(cards);
+    if ((cards[index] == "")) {
+      setState(() {
+        cards[index] = char;
+      });
+      changeChar();
+      setResult();
+    }
   }
 
   void changeChar() {
@@ -36,9 +38,39 @@ class _MyAppState extends State<MyApp> {
 
   void restartGame() {
     setState(() {
-      cards = [" ", " ", " ", " ", " ", " ", " ", " ", " "];
+      cards = ["", "", "", "", "", "", "", "", ""];
       char = "O";
     });
+  }
+
+  String checkWin() {
+    List<List<int>> lines = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 4, 8],
+      [2, 4, 6],
+    ];
+
+    for (int i = 0; i < lines.length; i++) {
+      var a = lines[i][0];
+      var b = lines[i][1];
+      var c = lines[i][2];
+      if (cards[a] != "" && cards[a] == cards[b] && cards[a] == cards[c]) {
+        return cards[a];
+      }
+    }
+  }
+
+  String setResult() {
+    if (checkWin() != null) {
+      print("Wygrywa ${checkWin()}");
+    } else if (!cards.contains("")) {
+      print('Remis');
+    }
   }
 
   @override
