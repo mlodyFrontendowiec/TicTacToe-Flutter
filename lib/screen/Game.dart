@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:tictac/widgets/game_board.dart';
 
 class Game extends StatelessWidget {
   final List cards;
   final Function setCard;
   final Function resetGame;
+  final Function setResult;
+  final Function restart;
 
-  Game(this.cards, this.setCard, this.resetGame);
+  Game(this.cards, this.setCard, this.resetGame, this.setResult, this.restart);
 
   @override
   Widget build(BuildContext context) {
@@ -14,24 +17,20 @@ class Game extends StatelessWidget {
           title: Text("Tic Tac Toe"),
           actions: [IconButton(icon: Icon(Icons.replay), onPressed: resetGame)],
         ),
-        body: GridView.builder(
-            gridDelegate:
-                SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
-            itemCount: cards.length,
-            itemBuilder: (BuildContext ctx, index) {
-              return GestureDetector(
-                onTap: () => setCard(index),
-                child: Card(
-                  child: Center(
-                    child: Text(
-                      cards[index],
-                      style: TextStyle(
-                        fontSize: 40,
-                      ),
-                    ),
+        body: setResult() == null
+            ? GameBoard(cards, setCard)
+            : AlertDialog(
+                title: Text(setResult() == 'remis'
+                    ? "Draw"
+                    : "The winner is ${setResult()}"),
+                actions: [
+                  TextButton(
+                    child: Text('New Game'),
+                    onPressed: () {
+                      restart();
+                    },
                   ),
-                ),
-              );
-            }));
+                ],
+              ));
   }
 }

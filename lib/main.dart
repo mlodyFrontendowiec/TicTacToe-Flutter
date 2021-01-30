@@ -67,9 +67,9 @@ class _MyAppState extends State<MyApp> {
 
   String setResult() {
     if (checkWin() != null) {
-      print("Wygrywa ${checkWin()}");
+      return checkWin();
     } else if (!cards.contains("")) {
-      print('Remis');
+      return "remis";
     }
   }
 
@@ -77,7 +77,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      home: Game(cards, setCard, restartGame),
+      home: Game(cards, setCard, restartGame, setResult, restartGame),
       initialRoute: '/',
     );
   }
