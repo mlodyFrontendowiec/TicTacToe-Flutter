@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tictac/screen/Game.dart';
+import 'package:tictac/screen/game_screen.dart';
+import 'package:tictac/screen/history_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -76,9 +77,11 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(canvasColor: const Color(0xffF0A500)),
       title: 'Flutter Demo',
       home: Game(cards, setCard, restartGame, setResult, restartGame),
       initialRoute: '/',
+      routes: {HistoryScreen.nameRoute: (ctx) => HistoryScreen()},
     );
   }
 }

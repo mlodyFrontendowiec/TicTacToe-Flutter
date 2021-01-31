@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tictac/widgets/game_board.dart';
+import 'package:tictac/widgets/main_drawer.dart';
 
 class Game extends StatelessWidget {
   final List cards;
@@ -14,9 +15,11 @@ class Game extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.brown,
           title: Text("Tic Tac Toe"),
           actions: [IconButton(icon: Icon(Icons.replay), onPressed: resetGame)],
         ),
+        drawer: MainDrawer(),
         body: setResult() == null
             ? GameBoard(cards, setCard)
             : AlertDialog(
