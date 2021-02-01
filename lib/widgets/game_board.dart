@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tictac/providers/history_games.dart';
 
 class GameBoard extends StatelessWidget {
   final List cards;
