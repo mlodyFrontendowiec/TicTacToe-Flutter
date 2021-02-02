@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tictac/providers/history_game.dart';
 import 'package:tictac/providers/history_games.dart';
 import 'package:tictac/widgets/game_board.dart';
 import 'package:tictac/widgets/main_drawer.dart';
@@ -43,7 +42,7 @@ class _GameState extends State<Game> {
     });
   }
 
-  String checkWin() {
+  dynamic checkWin() {
     List<List<int>> lines = [
       [0, 1, 2],
       [3, 4, 5],
@@ -65,7 +64,7 @@ class _GameState extends State<Game> {
     }
   }
 
-  String setResult() {
+  dynamic setResult() {
     if (checkWin() != null) {
       return checkWin();
     } else if (!cards.contains("")) {
@@ -95,7 +94,11 @@ class _GameState extends State<Game> {
                   TextButton(
                     child: Text('New Game'),
                     onPressed: () {
-                      historyGames.addGames("1", setResult());
+                      historyGames.addGames(
+                          "1",
+                          (setResult() == "X" || setResult() == "O")
+                              ? 'The winner is ${setResult()}'
+                              : "Draw");
                       restartGame();
                     },
                   ),

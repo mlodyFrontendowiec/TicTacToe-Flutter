@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class HistoryGame {
+class HistoryGame extends ChangeNotifier {
   final String id;
   final DateTime date;
   final String result;

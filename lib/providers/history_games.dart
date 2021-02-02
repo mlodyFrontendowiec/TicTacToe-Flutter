@@ -1,17 +1,15 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:tictac/providers/history_game.dart';
 
 class HistoryGames extends ChangeNotifier {
-  List<HistoryGame> _games = [HistoryGame("1", DateTime(1), "ok")];
+  List<HistoryGame> _games = [];
 
   List<HistoryGame> get games {
     return [..._games];
   }
 
-  void addGames(id, title) {
-    _games.add(HistoryGame(id, DateTime.now(), title));
+  void addGames(id, result) {
+    _games.add(HistoryGame(id, DateTime.now(), result));
     notifyListeners();
   }
 }

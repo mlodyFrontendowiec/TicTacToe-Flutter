@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tictac/providers/history_game.dart';
 import 'package:tictac/providers/history_games.dart';
+import 'package:tictac/widgets/history_game_tile.dart';
 
 class HistoryScreen extends StatelessWidget {
   static const String nameRoute = '/history';
@@ -12,17 +12,22 @@ class HistoryScreen extends StatelessWidget {
     final historyGames = historyData.games;
 
     return Scaffold(
-        appBar: AppBar(backgroundColor: Colors.brown),
-        body: GridView.builder(
-      padding: const EdgeInsets.all(10.0),
-      itemCount: historyGames.length,
-      itemBuilder: (ctx, i) => ChangeNotifierProvider(
-          create: (ctx) => historyGames[i], child: ),
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: 3 / 2,
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10),
-    ););
+        appBar: AppBar(
+          backgroundColor: Colors.brown,
+          title: Text("History Games"),
+        ),
+        body: historyGames.isEmpty
+            ? Center(child: Text("History is empty"))
+            : GridView.builder(
+                padding: const EdgeInsets.all(10.0),
+                itemCount: historyGames.length,
+                itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
+                    value: historyGames[i], child: HistoryItem()),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 3 / 2,
+                    crossAxisSpacing: 20,
+                    mainAxisSpacing: 20),
+              ));
   }
 }
